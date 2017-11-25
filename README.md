@@ -4,7 +4,7 @@ The pom.xml file contains all the necessary dependencies, and for a very simple 
 
 In addition, the directory structure for the Spock tests and the JUnit tests is created.
 
-#The Example application
+# The Example application
 
 
 # Build and run tests with
