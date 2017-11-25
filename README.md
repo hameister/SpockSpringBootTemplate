@@ -11,7 +11,7 @@ In addition, the directory structure for the Spock tests and the JUnit tests is 
 `mvn clean install`
 
 
-#Disclaimer
+# Disclaimer
 My projects, which I publish on Github, are prototypes that reflect my knowledge
 at the time I checked in the code and are primarily meant to allow me to copy or paste
 code snippets. If I want to solve a similar problem in the future.
