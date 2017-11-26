@@ -15,25 +15,21 @@ import java.util.List;
 @Service
 public class WeightService {
 
-    private  WeightReader weightReader;
 
     private WeightDataRepository weightDataRepository;
 
     @Autowired
-    public WeightService(WeightReader weightReader, WeightDataRepository dataRepository) {
-        Assert.notNull(weightReader,"WeightReader must not be null");
-
+    public WeightService(WeightDataRepository dataRepository) {
         Assert.notNull(dataRepository, "Repository should not be null");
-        this.weightReader = weightReader;
         this.weightDataRepository = dataRepository;
     }
 
     public int numberOfLines() {
-        return  weightReader.getLines().size();
+        return  weightDataRepository.findAll().size();
     }
 
     public  Double getAvg() {
-        return weightReader.getWeightDatas().stream().mapToDouble(WeightData::getWeight).average().orElse(Double.NaN);
+        return weightDataRepository.findAll().stream().mapToDouble(WeightData::getWeight).average().orElse(Double.NaN);
     }
 
     public List<WeightData> getDataSets() {
