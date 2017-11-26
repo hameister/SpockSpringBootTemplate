@@ -1,9 +1,11 @@
 package org.hameister.weight.service
 
 import org.hameister.weight.WeightReader
+import org.hameister.weight.data.WeightData
 import org.hameister.weight.data.WeightDataRepository
 
 import java.nio.file.Paths
+import java.time.LocalDate
 
 class WeightServiceSpec extends spock.lang.Specification {
 
@@ -11,11 +13,11 @@ class WeightServiceSpec extends spock.lang.Specification {
         given: "StatisticService and Repository Mock"
 
         WeightDataRepository dataRepository = Mock(WeightDataRepository)
-        String pathToTestdata = "./src/test/resources/Testdata.txt"
-        WeightReader weightReader = new  WeightReader(Paths.get(pathToTestdata));
+        dataRepository.findAll() >> getTestdata()
+
 
         when: "WeightService is created and lines are read"
-        WeightService weightService = new WeightService(weightReader, dataRepository);
+        WeightService weightService = new WeightService(dataRepository);
 
         then: "The number of lines should be 3"
         weightService.numberOfLines() == 3
@@ -23,12 +25,19 @@ class WeightServiceSpec extends spock.lang.Specification {
 
     def "Avg should compute the average weight"() {
         given: "WeightService is created and lines are read"
-        String pathToTestdata = "./src/test/resources/Testdata.txt"
         WeightDataRepository dataRepository = Mock(WeightDataRepository)
-        WeightService weightService = new WeightService(new WeightReader(Paths.get(pathToTestdata)), dataRepository);
+        dataRepository.findAll() >> getTestdata()
+        WeightService weightService = new WeightService(dataRepository);
 
         expect: "The Average weight is computed"
         weightService.avg == 80.36666870117188d
 
+    }
+
+
+    def getTestdata() {
+        return Arrays.asList(new WeightData(80.3f, LocalDate.of(2017, 8, 23)),
+                new WeightData(80.5f, LocalDate.of(2017, 8, 24)),
+                new WeightData(80.3f, LocalDate.of(2017, 8, 25)));
     }
 }
