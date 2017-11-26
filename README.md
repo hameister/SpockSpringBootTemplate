@@ -5,7 +5,10 @@ The pom.xml file contains all the necessary dependencies, and for a very simple 
 In addition, the directory structure for the Spock tests and the JUnit tests is created.
 
 # The Example application
-
+The `WeightReader` class reads a text file containing a `WeightData` record per line, which includes a weight (80.7) and a date (28.10.).
+The `WeightDataImporter` class uses the `WeightReader` to write the scanned text file to a database via a repository (`WeightDataRepository`). The example uses an H2 database.
+The `WeightService` class provides a function that calculates the average weight and returns the number of records.
+These features are tested with Spock and JUnit.
 
 
 
