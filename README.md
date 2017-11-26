@@ -7,6 +7,8 @@ In addition, the directory structure for the Spock tests and the JUnit tests is 
 # The Example application
 
 
+
+
 # Build and run tests with
 `mvn clean install`
 
