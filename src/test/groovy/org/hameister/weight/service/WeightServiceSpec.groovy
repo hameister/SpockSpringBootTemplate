@@ -10,7 +10,7 @@ import java.time.LocalDate
 class WeightServiceSpec extends spock.lang.Specification {
 
     def "The Test data file should contain 3 datasets"() {
-        given: "StatisticService and Repository Mock"
+        given: "Repository Mock with some test data"
 
         WeightDataRepository dataRepository = Mock(WeightDataRepository)
         dataRepository.findAll() >> getTestdata()
@@ -31,6 +31,20 @@ class WeightServiceSpec extends spock.lang.Specification {
 
         expect: "The Average weight is computed"
         weightService.avg == 80.36666870117188d
+
+    }
+
+    def "Get weight at one date"() {
+        given: "Repository Mock with some test data"
+        WeightDataRepository dataRepository = Mock(WeightDataRepository)
+        dataRepository.findByDate(LocalDate.of(2017,8,25)) >> new WeightData(80.3f, LocalDate.of(2017, 8, 23))
+        WeightService weightService = new WeightService(dataRepository);
+
+        when: "WeightService is created and lines are read"
+         float  weight = weightService.getWeightFromDate(LocalDate.of(2017,8,25))
+
+        then: "The weight at this day"
+        weight== 80.3f
 
     }
 
