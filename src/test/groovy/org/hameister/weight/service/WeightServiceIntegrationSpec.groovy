@@ -72,7 +72,8 @@ class WeightServiceIntegrationSpec extends Specification {
         weightFromDate == weight
         where: "Load data"
         // ArrayList [float, LocalDate]
-        [weight, date] << getTestdataFromFile()
+        // ->  Or call getTestdataFromFile()
+        [weight, date] << getTestdataFromFileShort()
     }
 
     //Create Multi-Variable Data Pipes for Groovy Spock test from a file.
@@ -88,6 +89,16 @@ class WeightServiceIntegrationSpec extends Specification {
             def date = line.substring(5) + "2017";
             data.add([weight, LocalDate.parse(date,DateTimeFormatter.ofPattern('dd.M.yyyy'))])
         }
+        return data
+    }
+
+
+    //Create Multi-Variable Data Pipes for Groovy Spock test from a file.
+    //Shorter version with a closure
+    def getTestdataFromFileShort() {
+        ArrayList data = [];
+        new File("src/test/resources/Testdata.txt").text.eachLine {line->data.add([Float.parseFloat(line.substring(0, 4).replace(',','.')), LocalDate.parse(line.substring(5) + "2017",DateTimeFormatter.ofPattern('dd.M.yyyy'))]) }
+
         return data
     }
 }
