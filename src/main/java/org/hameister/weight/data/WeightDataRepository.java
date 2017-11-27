@@ -13,6 +13,6 @@ import java.util.List;
 @org.springframework.stereotype.Repository
 public interface WeightDataRepository extends Repository<WeightData, Long> {
     List<WeightData> findAll();
-    List<WeightData> findByDate(LocalDate localDate);
+    WeightData findByDate(LocalDate localDate);
     WeightData save(WeightData item);
 }
