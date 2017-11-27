@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -30,6 +31,11 @@ public class WeightService {
 
     public  Double getAvg() {
         return weightDataRepository.findAll().stream().mapToDouble(WeightData::getWeight).average().orElse(Double.NaN);
+    }
+
+    public  float getWeightFromDate(LocalDate localDate) {
+        WeightData weightData = weightDataRepository.findByDate(localDate);
+        return  weightData.getWeight();
     }
 
     public List<WeightData> getDataSets() {
